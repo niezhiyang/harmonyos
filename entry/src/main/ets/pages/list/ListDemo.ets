@@ -1,4 +1,4 @@
-import { LoadMoreState, RefreshList } from '../../component/RefreshList';
+import { LoadMoreState, RefreshList } from '../../component/RefreshListOne';
 import { promptAction } from '@kit.ArkUI';
 
 @Entry
