@@ -12,8 +12,8 @@ export enum LoadMoreState {
 
 @Component
 @Preview
-export struct  RefreshListOne  {
-  // 数据
+export struct  RefreshList  {
+  // 数据源
   @Watch('onDataChange')
   @Link data: string[]
   @Require scroller: Scroller = new Scroller()
@@ -25,6 +25,10 @@ export struct  RefreshListOne  {
   }
   // 是否正在刷新
   @Link isRefresh: boolean
+  // 加载更多的枚举
+  @Watch('onLoadMoreStateChange')
+  @Link loadMoreState: LoadMoreState
+
   // list 单个item
   @BuilderParam listItem: (item: string, index: number) => void
   // 刷新的文案
@@ -32,9 +36,7 @@ export struct  RefreshListOne  {
   @State loadingText: string = '正在加载。。。'
   // 刷新文案左边的图片
   @State refreshIcon: PixelMap | ResourceStr | DrawableDescriptor = $r("app.media.arrow_down")
-  // 加载更多的枚举
-  @Watch('onLoadMoreStateChange')
-  @Link loadMoreState: LoadMoreState
+
 
   onDataChange() {
     console.error(`data 发生了变化 - ${this.data}`)
@@ -59,7 +61,7 @@ export struct  RefreshListOne  {
   @Builder
   refreshBuild() {
     Row({ space: 10 }) {
-      if (this.loadMoreState == LoadMoreState.Loading) {
+      if (this.isRefresh) {
         Progress({ value: 0, total: 100, type: ProgressType.Ring })
           .width(40).color(Color.Gray)
           .style({ strokeWidth: 5, status: ProgressStatus.LOADING })
@@ -95,21 +97,12 @@ export struct  RefreshListOne  {
     Column() {
       Refresh({ refreshing: $$this.isRefresh, builder: this.refreshBuild }) {
         List({ scroller: this.scroller }) {
-          // todo repeat 为啥还是有问题呢？？？？，下拉刷新的时候，数据倒过来了，并且不对index
-          // todo 先不考虑 LazyForEach
-          // Repeat<string>(this.data)
-          //   .each((data: RepeatItem<string>) => {
-          //   ListItem() {
-          //     this.listItem(data.item, data.index ?? -1)
-          //   }
-          // }).key((item: string, index: number) => item)
-
           ForEach(this.data, (item: string, index: number) => {
             ListItem() {
               this.listItem(item, index)
             }
           }, (item: string) => item)
-
+          // 添加loadmore
           this.loadMore()
         }
         .onScrollIndex((start: number, end: number, center: number) => {

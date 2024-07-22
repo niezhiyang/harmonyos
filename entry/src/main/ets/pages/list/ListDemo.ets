@@ -1,4 +1,4 @@
-import { LoadMoreState, RefreshListOne } from '../../component/RefreshListOne';
+import { LoadMoreState, RefreshList } from '../../component/RefreshList';
 import { promptAction } from '@kit.ArkUI';
 
 @Entry
@@ -36,7 +36,7 @@ struct ListDemo {
 
   build() {
     RelativeContainer() {
-      RefreshListOne({
+      RefreshList({
         data: this.data,
         isRefresh: this.isRefresh,
         loadMoreState: this.loadMoreState,
