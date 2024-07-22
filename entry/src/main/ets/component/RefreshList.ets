@@ -12,7 +12,7 @@ export enum LoadMoreState {
 
 @Component
 @Preview
-export struct RefreshList {
+export struct  RefreshList  {
   // 数据
   @Watch('onDataChange')
   @Link data: string[]
