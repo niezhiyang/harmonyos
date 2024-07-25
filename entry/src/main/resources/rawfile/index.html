@@ -1,0 +1,54 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .big-font {
+          font-size: 30px; /* 这将设置字体大小为20像素 */
+        }
+    </style>
+</head>
+<meta charset="utf-8">
+<body>
+<h1 style="font-size: 70px;">这是h5的标题</h1>
+<h1 id="text">无参默认字体为黑色，调用runJavaScript方法后字体为绿色</h1>
+<h1 id="text2">有参数默认字体为黑色，调用runJavaScript方法后字体为红色</h1>
+<button onclick="myFunction()">Alert</button>
+<button type="button" onclick="callNative()" style="font-size: 30px;width: 250px; height: 150px;">点我调用NA</button>
+<button type="button" onclick="callNativeNew()" style="font-size: 30px;width: 250px; height: 150px;">点我调用Na另一个类</button>
+<form id="upload-form" enctype="multipart/form-data">
+    <input type="file" id="upload" name="upload"/>
+</form>
+<img src="https://pic1.zhimg.com/80/v2-90ef765c25f088ae122812940d4b857c_1440w.webp" alt="text(替换文本)"
+     title="text(提示文本)"/>
+<p id="demo"></p>
+<p id="webDemo"></p>
+</body>
+<script type="text/javascript">
+    function callNative() {
+      let webStr = objTestName.callNative();
+      document.getElementById("webDemo").innerHTML=webStr;
+      console.log('objTestName.webTest result:'+ webStr)
+    }
+    function callNativeNew() {
+      let webStr = objTestNameNew.callNativeNew();
+      document.getElementById("webDemo").innerHTML=webStr;
+      console.log('objTestName.webTest result:'+ webStr)
+    }
+     // 调用有参函数时实现。
+    function htmlTestHasParam(param) {
+        document.getElementById('text').style.color = 'green';
+    }
+    // 调用无参函数时实现。
+    function htmlTestNoParam() {
+        document.getElementById('text2').style.color = 'red';
+    }
+    // 调用无参函数时实现。有返回值
+    function getHtmlTest() {
+        return '我是h5返回值'
+    }
+     function myFunction() {
+      alert("Hello World");
+    }
+</script>
+</html>

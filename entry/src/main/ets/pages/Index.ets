@@ -11,6 +11,12 @@ struct Index {
       Button('List').onClick(() => {
         router.pushUrl({ url: PathConstant.PATH_LIST })
       })
+      Button('web').onClick(() => {
+        router.pushUrl({ url: PathConstant.PATH_WEB })
+      })
+      Button('webAll').onClick(() => {
+        router.pushUrl({ url: PathConstant.PATH_WEB2 })
+      })
     }
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)

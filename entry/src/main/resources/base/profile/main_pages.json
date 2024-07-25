@@ -1,6 +1,8 @@
 {
   "src": [
     "pages/Index",
-    "pages/list/ListDemo"
+    "pages/list/ListDemo",
+    "pages/web/WebComponent",
+    "pages/web/WebDemo"
   ]
 }
