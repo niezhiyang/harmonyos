@@ -11,7 +11,7 @@ struct WebDemo {
   @State controller: webview.WebviewController = new webview.WebviewController();
   // @State url:string | Resource= 'https://www.csdn.net/'
   // @State url: string | Resource= 'https://www.huawei.com/cn'
-  @State url:string | Resource= $rawfile('index.html')
+  @State url: string | Resource = $rawfile('index.html')
   @State loadingVisibility: Visibility = Visibility.Visible
   @State progress: number = 0
   @State isWebError: boolean = false
@@ -114,11 +114,12 @@ struct WebComponent {
         console.log(`onTitleReceive=> ${event?.title}`)
       })
       .onLoadIntercept((event) => {
-        console.log(`onLoadIntercept=>${event.data.getRequestUrl()}`)
+        console.error(`onLoadIntercept=>${event.data.getRequestUrl()} ${getContext(this).cacheDir}`)
         let url: string = event.data.getRequestUrl();
-        // 如果是http协议继续加载
-        if (url.startsWith("http")) {
-          // 是网页，直接返回false 不拦截
+        if (url.startsWith("resource://")) {
+          return false
+        } else if (url.startsWith("http")) {
+          // 如果是http协议继续加载网页，直接返回false 不拦截
           return false
         } else if (url.indexOf('native://') === 0) {
           // 比如是Native页面，自己的非网页页面 , native:// 是自己的定义，一般咱们也是通过Bridge去做的
@@ -126,16 +127,21 @@ struct WebComponent {
           router.pushUrl({ url: 'pages/mine' });
           return true
         }
-        // 其他协议比如  alipay://dl/scan 扫一扫 ,直接打开 支付宝扫一扫，不用加载了 ，直接打开
-        // 这里是打开逻辑
-        let context = getContext(this) as common.UIAbilityContext;
-        // 打开其他应用界面
-        let openLinkOptions: OpenLinkOptions = {
-          appLinkingOnly: false
-        };
-        context.openLink(event.data.getRequestUrl(), openLinkOptions)
-        // 返回true表示阻止此次加载，否则允许此次加载
-        return true
+        // else if (whitelist) {
+        //   // 这里先注释，防止是使用 resource 和 /data/storage 本地打开h5,返回false，一般也不允许从咱们app打开其他的，一般是有白名单的
+        //   // 其他协议比如  alipay://dl/scan 扫一扫 ,直接打开 支付宝扫一扫，不用加载了 ，直接打开
+        //   // 这里是打开逻辑
+        //   let context = getContext(this) as common.UIAbilityContext;
+        //   // 打开其他应用界面
+        //   let openLinkOptions: OpenLinkOptions = {
+        //     appLinkingOnly: false
+        //   };
+        //   context.openLink(event.data.getRequestUrl(), openLinkOptions)
+        //   // 返回true表示阻止此次加载，否则允许此次加载
+        //   // return true
+        // }
+
+        return false
       })
       .onInterceptRequest((event) => {
 
