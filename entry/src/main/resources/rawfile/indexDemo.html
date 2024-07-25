@@ -7,7 +7,9 @@
 <h1 id="text">无参默认字体为黑色，调用runJavaScript方法后字体为绿色</h1>
 <h1 id="text2">有参数默认字体为黑色，调用runJavaScript方法后字体为红色</h1>
 <button type="button" onclick="callNative()" style="font-size: 30px;width: 250px; height: 150px;">点我调用NA</button>
-<button type="button" onclick="callNativeNew()" style="font-size: 30px;width: 250px; height: 150px;">点我调用Na另一个类</button>
+<button type="button" onclick="callNativeNew()" style="font-size: 30px;width: 250px; height: 150px;">
+    点我调用Na另一个类
+</button>
 
 
 <p id="demo"></p>
@@ -16,11 +18,12 @@
 <script type="text/javascript">
     function callNative() {
       let webStr = jsBridge.callNative();
-      document.getElementById("webDemo").innerHTML=webStr;
+      document.getElementById("demo").innerHTML=webStr;
       console.log('h5:'+ webStr)
     }
     function callNativeNew() {
-      let webStr = jsBridge2.callNativeNew();
+      let webStr = jsBridge2.callNative();
+       document.getElementById("webDemo").innerHTML=webStr;
       console.log('h5:'+ webStr)
     }
 </script>

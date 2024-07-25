@@ -11,7 +11,7 @@ struct WebDemo {
   @State controller: webview.WebviewController = new webview.WebviewController();
   // @State url:string | Resource= 'https://www.csdn.net/'
   // @State url: string | Resource= 'https://www.huawei.com/cn'
-  @State url: string | Resource = $rawfile('index.html')
+  @State url: string | Resource = $rawfile('indexDemo.html')
   @State loadingVisibility: Visibility = Visibility.Visible
   @State progress: number = 0
   @State isWebError: boolean = false
