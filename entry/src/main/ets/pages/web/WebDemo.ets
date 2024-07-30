@@ -10,8 +10,9 @@ struct WebDemo {
   @State message: string = 'Hello World';
   @State controller: webview.WebviewController = new webview.WebviewController();
   // @State url:string | Resource= 'https://www.csdn.net/'
+  @State url:string | Resource= 'https://juejin.cn/'
   // @State url: string | Resource= 'https://www.huawei.com/cn'
-  @State url: string | Resource = $rawfile('indexDemo.html')
+  // @State url: string | Resource = $rawfile('indexDemo.html')
   @State loadingVisibility: Visibility = Visibility.Visible
   @State progress: number = 0
   @State isWebError: boolean = false
@@ -114,7 +115,7 @@ struct WebComponent {
         console.log(`onTitleReceive=> ${event?.title}`)
       })
       .onLoadIntercept((event) => {
-        console.error(`onLoadIntercept=>${event.data.getRequestUrl()} ${getContext(this).cacheDir}`)
+        console.error(`onLoadIntercept=>${event.data.getRequestUrl()}`)
         let url: string = event.data.getRequestUrl();
         if (url.startsWith("resource://")) {
           return false
@@ -141,6 +142,10 @@ struct WebComponent {
         //   // return true
         // }
 
+        return false
+      })
+      .onOverrideUrlLoading((webReq:WebResourceRequest)=>{
+        console.log(`onOverrideUrlLoading = > ${webReq.getRequestUrl()}`)
         return false
       })
       .onInterceptRequest((event) => {
@@ -193,11 +198,11 @@ struct WebComponent {
       })
       .onErrorReceive((event) => {
         console.error(`onErrorReceive=> ${JSON.stringify(event)}}`)
-        if (event?.error) {
-          console.error(`onErrorReceive.error=> ${JSON.stringify(event.error)}}`)
-        }
-        // 接收到错误 网页加载遇到错误时触发该回调。出于性能考虑，建议此回调中尽量执行简单逻辑。在无网络的情况下，触发此回调
-        this.isWebError = true
+        // if (event?.error) {
+        //   console.error(`onErrorReceive.error=> ${JSON.stringify(event.error)}}`)
+        // }
+        // // 接收到错误 网页加载遇到错误时触发该回调。出于性能考虑，建议此回调中尽量执行简单逻辑。在无网络的情况下，触发此回调
+        // this.isWebError = true
       })
       .onShowFileSelector(() => {
         //调用此函数以处理具有“文件”输入类型的HTML表单。如果不调用此函数或返回false，
