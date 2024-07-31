@@ -2,7 +2,8 @@
   "src": [
     "pages/Index",
     "pages/list/ListDemo",
-    "pages/web/WebComponent",
-    "pages/web/WebDemo"
+    "pages/web/WebDemo",
+    "pages/web/JsBridgePage",
+    "pages/web/jsbridge/WebJsBridgePage"
   ]
 }

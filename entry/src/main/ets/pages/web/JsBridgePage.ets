@@ -10,18 +10,14 @@ struct JsBridgePage {
   @State controller: webview.WebviewController = new webview.WebviewController();
   // @State url:string | Resource= 'https://www.csdn.net/'
   // @State url: string | Resource= 'https://www.huawei.com/cn'
-  // @State url: string | Resource = $rawfile('indexDemo.html')
-  // @State url: string = 'https://m.jiduapp.cn/hybrid/pages/article_detail?naviStyle=2&id=702407296816531586'
-  @State url: string | Resource = 'https://m.jiduapp.cn/jidulife/#/pages/goodsDetail?naviStyle=1&id=105029312889711560'
+  @State url: string | Resource = $rawfile('indexDemo.html')
   @State map: HashMap<string, CordovaPlugin> = new HashMap()
   @State jsBridge: JsBridge = new JsBridge(this.controller, this.map);
 
   aboutToAppear(): void {
     let pagePlugin = new PagePlugin(this.controller)
-    this.map.set('JiduPageFunction', pagePlugin)
 
     let loginPlugin = new LoginPlugin(this.controller)
-    this.map.set('JiduLogin', loginPlugin)
   }
 
   build() {
@@ -36,7 +32,6 @@ struct JsBridgePage {
           let userAgent = this.controller.getUserAgent();
           console.log(`userAgent=> ${userAgent}}`)
           // 设置新的UserAgent
-          this.controller.setCustomUserAgent('jiduapp/2.10.0 (Android; 12; HUAWEI; com.jiduauto.app; ABR-AL60; debugapp; 113b24267007401daf0a7e00dfa625d3; SFdBQlItUUw=; 0)');
         })
         .onProgressChange((event) => {
           if (event) {

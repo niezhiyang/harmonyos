@@ -17,6 +17,9 @@ struct Index {
       Button('webAll').onClick(() => {
         router.pushUrl({ url: PathConstant.PATH_WEB2 })
       })
+      Button('jsbridge').onClick(() => {
+        router.pushUrl({ url: "pages/web/JsBridgePage"})
+      })
     }
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
