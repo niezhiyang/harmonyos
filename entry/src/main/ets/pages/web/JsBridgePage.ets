@@ -17,7 +17,7 @@ struct JsBridgePage {
   aboutToAppear(): void {
     let pagePlugin = new PagePlugin(this.controller)
 
-    let loginPlugin = new LoginPlugin(this.controller)
+    let loginPlugin = new UserPlugin(this.controller)
   }
 
   build() {
@@ -92,7 +92,7 @@ abstract class CordovaPlugin {
 
 export class PagePlugin extends CordovaPlugin {
   exec(action: string, args: JSON[], callbackContext: CallbackContext): boolean {
-    if (action == 'queryTopHeight') {
+    if (action == 'query') {
 
       callbackContext.success({ "status": "0" })
     }
@@ -100,9 +100,9 @@ export class PagePlugin extends CordovaPlugin {
   }
 }
 
-export class LoginPlugin extends CordovaPlugin {
+export class UserPlugin extends CordovaPlugin {
   exec(action: string, args: JSON[], callbackContext: CallbackContext): boolean {
-    if (action == 'queryLoginStatus') {
+    if (action == 'user') {
       callbackContext.success({ "status": "0" })
       return true
     }
