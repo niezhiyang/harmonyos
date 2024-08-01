@@ -4,6 +4,7 @@
     "pages/list/ListDemo",
     "pages/web/WebDemo",
     "pages/web/JsBridgePage",
-    "pages/web/jsbridge/WebJsBridgePage"
+    "pages/web/jsbridge/WebJsBridgePage",
+    "pages/web/offline/OfflineWebPage"
   ]
 }

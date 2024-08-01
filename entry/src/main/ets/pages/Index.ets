@@ -20,6 +20,9 @@ struct Index {
       Button('jsbridge').onClick(() => {
         router.pushUrl({ url: "pages/web/JsBridgePage"})
       })
+      Button('offline').onClick(() => {
+        router.pushUrl({ url: "pages/web/offline/OfflineWebPage"})
+      })
     }
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
