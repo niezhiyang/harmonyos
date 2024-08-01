@@ -14,9 +14,8 @@ const TAG = "JsBridge"
 @Component
 struct WebJsBridgePage {
   @State url: string | Resource = $rawfile('JsBridgeDemo.html')
-  map: HashMap<string, (data: string) => void> = new HashMap()
   @State controller: webview.WebviewController = new webview.WebviewController();
-  jsBridgeHelper: JsBridgeHelper = new JsBridgeHelper(this.controller, this.map)
+  jsBridgeHelper: JsBridgeHelper = new JsBridgeHelper(this.controller)
   @State jsBridge: MainJavascriptInterface = new MainJavascriptInterface(this.jsBridgeHelper);
 
   build() {
@@ -60,38 +59,31 @@ struct WebJsBridgePage {
   }
 }
 
-abstract class BaseJsBridge {
+
+class MainJavascriptInterface {
   jsBridgeHelper: JsBridgeHelper
 
   constructor(jsBridgeHelper: JsBridgeHelper) {
     this.jsBridgeHelper = jsBridgeHelper;
   }
 
-  abstract sendMessage(): string
-
   // h5 调用 NA , NA回调给h5的。是通过 runJavaScript
   send(data: string, callbackId: string): string {
-    console.log(TAG, `BaseJsBridge： method=send ,data=>${data} , callbackId=>${callbackId}`)
-    return this.sendMessage()
+    console.log(TAG, `MainJavascriptInterface： method=send ,data=>${data} , callbackId=>${callbackId}`)
+    // 这里的返回值其实是没有意义的
+    return '--'
   }
 
   // 当 NA 发送消息，h5 回调给 NA是用这种方法
   response(data: string, responseId: string): void {
-    console.log(TAG, `BaseJsBridge： method=response  data=>${data} , responseId=>${responseId}`)
+    console.log(TAG, `MainJavascriptInterface： method=response  data=>${data} , responseId=>${responseId}`)
     if (this.jsBridgeHelper.map.hasKey(responseId)) {
       this.jsBridgeHelper.map.remove(responseId)(data)
     }
   }
-}
-
-class MainJavascriptInterface extends BaseJsBridge {
-  sendMessage(): string {
-    console.log(TAG, `MainJavascriptInterface： sendMessage`)
-    return "这里应该是无用的信息";
-  }
 
   submitFromWeb(data: string, callbackId: string) {
-    console.log(TAG, `submitFromWeb： data=>${data} , responseId=>${callbackId}`)
+    console.log(TAG, `MainJavascriptInterface: method=submitFromWeb data=>${data} , responseId=>${callbackId}`)
     this.jsBridgeHelper.sendResponse('submitFromWeb response', callbackId)
   }
 }
@@ -109,11 +101,10 @@ class JSResponse {
 
 class JsBridgeHelper {
   controller: webview.WebviewController;
-  map: HashMap<string, (data: string) => void>
+  map: HashMap<string, (data: string) => void> = new HashMap()
 
-  constructor(controller: webview.WebviewController, map: HashMap<string, (data: string) => void>) {
+  constructor(controller: webview.WebviewController) {
     this.controller = controller
-    this.map = map
   }
 
   sendResponse(data: string, callbackId: string) {
