@@ -5,6 +5,7 @@
     "pages/web/WebDemo",
     "pages/web/JsBridgePage",
     "pages/web/jsbridge/WebJsBridgePage",
-    "pages/web/offline/OfflineWebPage"
+    "pages/web/offline/OfflineWebPage",
+    "pages/nav/NavigationDemoPage"
   ]
 }

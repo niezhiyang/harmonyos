@@ -7,26 +7,33 @@ struct Index {
   @State message: string = 'Hello World';
 
   build() {
-    Column() {
-      Button('List').onClick(() => {
-        router.pushUrl({ url: PathConstant.PATH_LIST })
-      })
-      Button('web').onClick(() => {
-        router.pushUrl({ url: PathConstant.PATH_WEB })
-      })
-      Button('webAll').onClick(() => {
-        router.pushUrl({ url: PathConstant.PATH_WEB2 })
-      })
-      Button('jsbridge').onClick(() => {
-        router.pushUrl({ url: "pages/web/JsBridgePage"})
-      })
-      Button('offline').onClick(() => {
-        router.pushUrl({ url: "pages/web/offline/OfflineWebPage"})
-      })
+    Navigation() {
+      Column() {
+        Button('List').onClick(() => {
+          router.pushUrl({ url: PathConstant.PATH_LIST })
+        })
+        Button('web').onClick(() => {
+          router.pushUrl({ url: PathConstant.PATH_WEB })
+        })
+        Button('webAll').onClick(() => {
+          router.pushUrl({ url: PathConstant.PATH_WEB_ALL })
+        })
+        Button('jsbridge').onClick(() => {
+          router.pushUrl({ url: PathConstant.PATH_WEB_JSBRIDGE })
+        })
+        Button('offline').onClick(() => {
+          router.pushUrl({ url: PathConstant.PATH_WEB_OFFLINE })
+        })
+        Button('navigation').onClick(() => {
+          router.pushUrl({ url: 'pages/nav/NavigationDemoPage' })
+        })
+      }
+      .justifyContent(FlexAlign.Center)
+      .alignItems(HorizontalAlign.Center)
+      .height('100%')
+      .width('100%')
     }
-    .justifyContent(FlexAlign.Center)
-    .alignItems(HorizontalAlign.Center)
-    .height('100%')
-    .width('100%')
+    .mode(NavigationMode.Auto)
+
   }
 }

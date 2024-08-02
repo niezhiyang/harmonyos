@@ -1,7 +1,5 @@
 import { webview } from '@kit.ArkWeb';
-import { BusinessError } from '@kit.BasicServicesKit';
 import { HashMap, JSON } from '@kit.ArkTS';
-import { when } from '@ohos/hypium';
 
 @Entry
 @Component
