@@ -74,8 +74,9 @@ export class LoggerPrinter implements Printer {
     // 文件名的线
     this.logPrint(level, tag, `${prefix}${this._singleDivider}`)
     if (isJson) {
-      content.split('\n').forEach((value) => {
-        this.logPrint(level, tag, `${prefix} ${value}`)
+      // split 打印，打印不全，有可能是太多 打印不全
+      content.split('\n').forEach((value,index,array) => {
+        this.logPrint(level, tag, `${prefix} ${value} ${index}--${array.length}`)
       })
     } else {
       this.logPrint(level, tag, `${prefix} ${content}`)

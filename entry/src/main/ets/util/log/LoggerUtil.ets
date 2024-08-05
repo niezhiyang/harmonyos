@@ -7,7 +7,6 @@ export class LogUtil {
     if (stack && stack.length > 3) {
       const location = stack[4].match(/(\(.*\)|\s*at\s+(.*))/);
       if (location) {
-        // const locationInfo = location[0].trim().split('/').pop() as string;
         const locationInfo = location[0].trim();
         const regex = /([^/]+\.(ts|js|ets):\d+:\d+)/;
         const match = locationInfo.match(regex);
