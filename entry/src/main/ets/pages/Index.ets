@@ -6,6 +6,8 @@ import { PathConstant } from '../constant/PathConstant';
 struct Index {
   @State message: string = 'Hello World';
 
+  aboutToAppear(): void {
+  }
   build() {
     Navigation() {
       Column() {
@@ -26,6 +28,9 @@ struct Index {
         })
         Button('navigation').onClick(() => {
           router.pushUrl({ url: 'pages/nav/NavigationDemoPage' })
+        })
+        Button('NetPage').onClick(() => {
+          router.pushUrl({ url: 'pages/net/NetPage' })
         })
       }
       .justifyContent(FlexAlign.Center)
