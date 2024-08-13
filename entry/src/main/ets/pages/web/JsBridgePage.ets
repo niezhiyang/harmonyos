@@ -14,7 +14,6 @@ struct JsBridgePage {
 
   aboutToAppear(): void {
     let pagePlugin = new PagePlugin(this.controller)
-
     let loginPlugin = new UserPlugin(this.controller)
   }
 

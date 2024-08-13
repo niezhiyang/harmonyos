@@ -1,4 +1,3 @@
-import { when } from '@ohos/hamock';
 import { LogUtil } from './LoggerUtil';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
@@ -74,9 +73,9 @@ export class LoggerPrinter implements Printer {
     // 文件名的线
     this.logPrint(level, tag, `${prefix}${this._singleDivider}`)
     if (isJson) {
-      // split 打印，打印不全，有可能是太多 打印不全
+      // 日志过于频繁 发现日志不打印，bug
       content.split('\n').forEach((value,index,array) => {
-        this.logPrint(level, tag, `${prefix} ${value} ${index}--${array.length}`)
+        this.logPrint(level, tag, ` ${index}--${array.length} ${prefix} ${value}`)
       })
     } else {
       this.logPrint(level, tag, `${prefix} ${content}`)

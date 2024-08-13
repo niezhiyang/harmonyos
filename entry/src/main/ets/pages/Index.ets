@@ -32,6 +32,9 @@ struct Index {
         Button('NetPage').onClick(() => {
           router.pushUrl({ url: 'pages/net/NetPage' })
         })
+        Button('photo').onClick(() => {
+          router.pushUrl({ url: 'pages/photo/PhotoPage' })
+        })
       }
       .justifyContent(FlexAlign.Center)
       .alignItems(HorizontalAlign.Center)

@@ -7,6 +7,8 @@
     "pages/web/jsbridge/WebJsBridgePage",
     "pages/web/offline/OfflineWebPage",
     "pages/nav/NavigationDemoPage",
-    "pages/net/NetPage"
+    "pages/net/NetPage",
+    "pages/LogPage",
+    "pages/photo/PhotoPage"
   ]
 }
