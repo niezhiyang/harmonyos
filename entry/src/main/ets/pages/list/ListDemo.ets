@@ -1,17 +1,20 @@
 import { LoadMoreState, RefreshList } from '../../component/RefreshList';
 import { promptAction } from '@kit.ArkUI';
 import { Logger } from '@nzy/logger';
-import { BaseListData } from '../../component/BaseListData';
 
-export class MyData extends BaseListData{
-  name: string = ''
+export class MyData {
+  age: number = 0
+
+  constructor(age: number) {
+    this.age = age
+  }
 }
 
 @Entry
 @Component
 struct ListDemo {
   @State message: string = 'Hello World';
-  @State data: string[] = []
+  @State data: MyData[] = []
   @State isRefresh: boolean = false
   @State isLoadMore: boolean = false
   @State loadMoreState: LoadMoreState = LoadMoreState.None
@@ -21,15 +24,15 @@ struct ListDemo {
   aboutToAppear(): void {
     for (let index = 0; index < 15; index++) {
       // this.data.push(`${Math.floor(Math.random() * 100)}`)
-      this.data.push(index.toString())
+      this.data.push(new MyData(index))
     }
     console.error('onPageShow')
 
   }
 
   @Builder
-  listItem(item: MyData, index: number) {
-    Text(item.name)
+  listItem(item: Object, index: number) {
+    Text((item as MyData).age.toString())
       .fontSize(30)
       .align(Alignment.Center)
       .height(100)
@@ -53,7 +56,9 @@ struct ListDemo {
             setTimeout(() => {
               resolve('加载更多成功');
               Logger.info(`执行加载更多`)
-              let arr2 = [`${this.index++}`, `${this.index++}`, `${this.index++}`, `${this.index++}`, `${this.index++}`]
+              let arr2 =
+                [new MyData(this.index++), new MyData(this.index++), new MyData(this.index++), new MyData(this.index++),
+                  new MyData(this.index++)]
               this.data.push(...arr2)
               this.isLoadMore = false
               if (this.index > 9) {
@@ -84,10 +89,10 @@ struct ListDemo {
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
   }
 
-  getData(): string[] {
-    let addData: string[] = []
+  getData(): MyData[] {
+    let addData: MyData[] = []
     for (let index = 0; index < 20; index++) {
-      addData.push(`${Math.floor(Math.random() * 100)}`)
+      addData.push(new MyData(Math.floor(Math.random() * 100)))
     }
     return addData;
   }

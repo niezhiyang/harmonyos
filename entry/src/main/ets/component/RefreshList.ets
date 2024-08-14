@@ -12,13 +12,12 @@ export enum LoadMoreState {
   LoadEnd,
   LoadFail,
 }
-type UnionData = BaseListData | Object
 @Component
 @Preview
 export struct  RefreshList  {
   // 数据源
   @Watch('onDataChange')
-  @Link data: string[]
+  @Link data: Object[]
   @Require scroller: Scroller = new Scroller()
   // 加载更多的回调
   @Require onLoadMore: () => void = () => {
@@ -33,7 +32,7 @@ export struct  RefreshList  {
   @Link loadMoreState: LoadMoreState
 
   // list 单个item
-  @BuilderParam listItem: (item: string, index: number) => void
+  @BuilderParam listItem: (item: Object, index: number) => void
   // 刷新的文案
   @State refreshText: string = '加载中。。。'
   @State loadingText: string = '正在加载。。。'
