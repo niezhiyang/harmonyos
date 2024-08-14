@@ -16,7 +16,6 @@ struct ListDemo {
   @State message: string = 'Hello World';
   @State data: MyData[] = []
   @State isRefresh: boolean = false
-  @State isLoadMore: boolean = false
   @State loadMoreState: LoadMoreState = LoadMoreState.None
   scroller: Scroller = new Scroller()
   index: number = 0
@@ -60,7 +59,6 @@ struct ListDemo {
                 [new MyData(this.index++), new MyData(this.index++), new MyData(this.index++), new MyData(this.index++),
                   new MyData(this.index++)]
               this.data.push(...arr2)
-              this.isLoadMore = false
               if (this.index > 9) {
                 this.loadMoreState = LoadMoreState.LoadEnd
               } else {
@@ -77,7 +75,6 @@ struct ListDemo {
               promptAction.showToast({ message: '刷新成功' })
               this.data = this.getData();
               this.isRefresh = false
-
             }, 2000);
           });
         },
