@@ -2,6 +2,7 @@ import { webview } from '@kit.ArkWeb';
 import { HashMap, util } from '@kit.ArkTS';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { promptAction } from '@kit.ArkUI';
+import { Logger } from '@nzy/logger';
 
 /**
  * https://github.com/uknownothingsnow/JsBridge
@@ -22,7 +23,7 @@ struct WebJsBridgePage {
     Column() {
       Button('给h5发送消息,有回调').onClick(() => {
         this.jsBridgeHelper.callHandler('functionInJs', '大哥好呀', (data) => {
-          console.log(`Button=>点击 回调 ${data}`)
+          Logger.info(`Button=>点击 回调 ${data}`)
         })
       })
       Button('给h5发送消息 无回调').onClick(() => {
@@ -42,13 +43,13 @@ struct WebJsBridgePage {
           let jsBridge = getContext(this).resourceManager.getRawFileContentSync('WebViewJavascriptBridge.js')
           let decoder = new util.TextDecoder('utf-8')
           let content = decoder.decode(jsBridge)
-          console.log('读取到 ' + content)
+          Logger.info('读取到 ' + content)
           this.controller.loadUrl('javascript:' + content)
         })
         .textZoomRatio(250)
         .onConsole((event) => {
           // h5的打印，可以在这里看到
-          console.log(`H5的打印-> ${event?.message.getMessage()}`)
+          Logger.info(`H5的打印-> ${event?.message.getMessage()}`)
           return true
         })
         .width('100%')
@@ -69,21 +70,21 @@ class MainJavascriptInterface {
 
   // h5 调用 NA , NA回调给h5的。是通过 runJavaScript
   send(data: string, callbackId: string): string {
-    console.log(TAG, `MainJavascriptInterface： method=send ,data=>${data} , callbackId=>${callbackId}`)
+    Logger.info( `MainJavascriptInterface： method=send ,data=>${data} , callbackId=>${callbackId}`,TAG)
     // 这里的返回值其实是没有意义的
     return '--'
   }
 
   // 当 NA 发送消息，h5 回调给 NA是用这种方法
   response(data: string, responseId: string): void {
-    console.log(TAG, `MainJavascriptInterface： method=response  data=>${data} , responseId=>${responseId}`)
+    Logger.info( `MainJavascriptInterface： method=response  data=>${data} , responseId=>${responseId}`,TAG)
     if (this.jsBridgeHelper.map.hasKey(responseId)) {
       this.jsBridgeHelper.map.remove(responseId)(data)
     }
   }
 
   submitFromWeb(data: string, callbackId: string) {
-    console.log(TAG, `MainJavascriptInterface: method=submitFromWeb data=>${data} , responseId=>${callbackId}`)
+    Logger.info(TAG, `MainJavascriptInterface: method=submitFromWeb data=>${data} , responseId=>${callbackId}`)
     this.jsBridgeHelper.sendResponse('submitFromWeb response', callbackId)
   }
 }
@@ -112,7 +113,7 @@ class JsBridgeHelper {
     response.responseId = callbackId
     response.responseData = data
     let content = `javascript:WebViewJavascriptBridge._handleMessageFromNative('${JSON.stringify(response)}');`
-    console.log(`json=> ${content}`)
+   Logger.info(`json=> ${content}`)
     this.controller.runJavaScript(content)
   }
 

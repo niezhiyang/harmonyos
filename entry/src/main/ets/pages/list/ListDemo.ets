@@ -1,5 +1,11 @@
 import { LoadMoreState, RefreshList } from '../../component/RefreshList';
 import { promptAction } from '@kit.ArkUI';
+import { Logger } from '@nzy/logger';
+import { BaseListData } from '../../component/BaseListData';
+
+export class MyData extends BaseListData{
+  name: string = ''
+}
 
 @Entry
 @Component
@@ -22,8 +28,8 @@ struct ListDemo {
   }
 
   @Builder
-  listItem(item: string, index: number) {
-    Text(item)
+  listItem(item: MyData, index: number) {
+    Text(item.name)
       .fontSize(30)
       .align(Alignment.Center)
       .height(100)
@@ -46,7 +52,7 @@ struct ListDemo {
             // 模拟网络请求操作
             setTimeout(() => {
               resolve('加载更多成功');
-              console.log(`执行加载更多`)
+              Logger.info(`执行加载更多`)
               let arr2 = [`${this.index++}`, `${this.index++}`, `${this.index++}`, `${this.index++}`, `${this.index++}`]
               this.data.push(...arr2)
               this.isLoadMore = false

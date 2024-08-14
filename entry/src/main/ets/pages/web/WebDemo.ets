@@ -3,6 +3,7 @@ import { router } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 import OpenLinkOptions from '@ohos.app.ability.OpenLinkOptions';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { Logger } from '@nzy/logger';
 
 @Entry
 @Component
@@ -85,7 +86,7 @@ struct WebComponent {
         this.controller.refresh()
         // 拿到当前的UserAgent
         let userAgent = this.controller.getUserAgent() + '  appVersion/1.0.0';
-        console.log(`userAgent=> ${userAgent}}`)
+        Logger.info(`userAgent=> ${userAgent}}`)
         // 设置新的UserAgent
         this.controller.setCustomUserAgent(userAgent);
       })
@@ -100,7 +101,7 @@ struct WebComponent {
       .onPageEnd((event) => {
         // 推荐在此事件中执行JavaScript脚本
         // this.controller.runJavaScript('onPageEnd()')
-        console.log("onPageEnd")
+        Logger.info("onPageEnd")
         // 隐藏loading
         this.loadingVisibility = Visibility.Hidden
       })
@@ -112,7 +113,7 @@ struct WebComponent {
       .horizontalScrollBarAccess(false)//设置是否显示横向滚动条 默认是有的
       .verticalScrollBarAccess(false)//设置是否显示纵向滚动条 默认是有的
       .onTitleReceive((event) => {
-        console.log(`onTitleReceive=> ${event?.title}`)
+        Logger.info(`onTitleReceive=> ${event?.title}`)
       })
       .onLoadIntercept((event) => {
         console.error(`onLoadIntercept=>${event.data.getRequestUrl()}`)
@@ -145,7 +146,7 @@ struct WebComponent {
         return false
       })
       .onOverrideUrlLoading((webReq:WebResourceRequest)=>{
-        console.log(`onOverrideUrlLoading = > ${webReq.getRequestUrl()}`)
+        Logger.info(`onOverrideUrlLoading = > ${webReq.getRequestUrl()}`)
         return false
       })
       .onInterceptRequest((event) => {
@@ -193,7 +194,7 @@ struct WebComponent {
       })
       .onConsole((event) => {
         // h5的打印，可以在这里看到
-        console.log(`H5自己的打印-${event?.message.getMessage()}`)
+        Logger.info(`H5自己的打印-${event?.message.getMessage()}`)
         return true
       })
       .onErrorReceive((event) => {
@@ -247,7 +248,7 @@ class JsBridge {
   }
 
   callNative() {
-    console.log('h5 调用了 Native的 JsBridge callNativeNew 方法')
+    Logger.info('h5 调用了 Native的 JsBridge callNativeNew 方法')
     return '11111'
   }
 }
@@ -260,11 +261,11 @@ class JsBridge2 {
   }
 
   callNative() {
-    console.log('h5 调用了 Native 的 JsBridge2 的 callNative 方法')
+    Logger.info('h5 调用了 Native 的 JsBridge2 的 callNative 方法')
     return '2222'
   }
 
   asyncMethodList() {
-    console.log('h5 调用了 Native 的 JsBridge2 的 asyncMethodList 方法')
+    Logger.info('h5 调用了 Native 的 JsBridge2 的 asyncMethodList 方法')
   }
 }

@@ -1,8 +1,8 @@
 import { http } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { JSON } from '@kit.ArkTS';
-import { Logger } from '../../util/log/Logger';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { Logger } from '@nzy/logger';
 
 
 @Entry
@@ -25,7 +25,7 @@ struct NetPage {
           .then((data) => {
             // 将 JSON 字符串解析为对象
             let jsonObject: object | null = JSON.parse(data.result as string);
-            Logger.json('response', jsonObject)
+            Logger.json( jsonObject,'response')
             this.message = JSON.stringify(jsonObject, null, 2)
           }).catch((error: BusinessError) => {
         })

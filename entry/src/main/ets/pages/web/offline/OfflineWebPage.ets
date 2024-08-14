@@ -1,5 +1,6 @@
 import { webview } from '@kit.ArkWeb';
 import { fileIo as fs } from '@kit.CoreFileKit';
+import { Logger } from '@nzy/logger';
 import { OfflineUtil } from './OfflineUtil';
 
 
@@ -28,7 +29,7 @@ struct OfflineWebPage {
           this.startTime = new Date().getTime()
         })
         .onPageEnd(() => {
-          console.log(`从onPageBegin到onPageEnd 事件是 ${new Date().getTime() - this.startTime}`)
+          Logger.info(`从onPageBegin到onPageEnd 事件是 ${new Date().getTime() - this.startTime}`)
         })
         .onInterceptRequest((event) => {
           if (event) {

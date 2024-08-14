@@ -1,6 +1,7 @@
 import { HashMap, url } from '@kit.ArkTS';
 import { http } from '@kit.NetworkKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
+import { Logger } from '@nzy/logger';
 
 let TAG = 'OfflineUtil'
 let PRX = `https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web`
@@ -75,12 +76,12 @@ export class OfflineUtil {
       // "https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/4ab562f.js"
       // 比如上面得到的就是 4ab562f.js
       let name: string = downUrl.pathname.split('/').pop() as string;
-      console.log(TAG, `名字是 ${name}`);
+      Logger.info(TAG, `名字是 ${name}`);
       // 获取真正的路径
       let path = urlReq.replace(PRX, '');
       let pathDown = this.offlineFilePath + path;
       // 打开，如果不存在 直接创建
-      console.log(TAG, `下载的路径是 ${pathDown}`);
+      Logger.info(TAG, `下载的路径是 ${pathDown}`);
 
       // /data/storage/el2/base/haps/entry/cache/offline/static/rc-client-security-web-glue/1.0.0.19/sdk-glue.js
       // 再判断 parent是否存在，不存在创建parent目录 ，否则再openSync会报错
@@ -113,11 +114,11 @@ export class OfflineUtil {
         if (value != "") {
           temp = temp + '/' + value
           let exists = fs.accessSync(this.offlineFilePath + temp)
-          console.log(`这个是否存在 ${this.offlineFilePath + temp}  + ${exists}`)
+          Logger.info(`这个是否存在 ${this.offlineFilePath + temp}  + ${exists}`)
           if (!exists) {
-            console.log(`创建 ${this.offlineFilePath + temp}`)
+            Logger.info(`创建 ${this.offlineFilePath + temp}`)
             fs.mkdirSync(this.offlineFilePath + temp)
-            console.log(`创建 成功`)
+            Logger.info(`创建 成功`)
           }
         }
 
@@ -166,7 +167,7 @@ export class OfflineUtil {
           responseWeb.setResponseCode(200);
           responseWeb.setReasonMessage('OK');
           responseWeb.setResponseIsReady(true);
-          console.log('给的是本地数据 ' + url)
+          Logger.info('给的是本地数据 ' + url)
           return responseWeb;
         }
       }

@@ -1,4 +1,7 @@
 import { JSON } from '@kit.ArkTS'
+import { Logger } from '@nzy/logger'
+import { MyData } from '../pages/list/ListDemo'
+import { BaseListData } from './BaseListData'
 
 const OFFSET = 60
 
@@ -9,7 +12,7 @@ export enum LoadMoreState {
   LoadEnd,
   LoadFail,
 }
-
+type UnionData = BaseListData | Object
 @Component
 @Preview
 export struct  RefreshList  {
@@ -39,11 +42,11 @@ export struct  RefreshList  {
 
 
   onDataChange() {
-    console.error(`data 发生了变化 - ${this.data}`)
+    Logger.info(`data 发生了变化 - ${this.data}`)
   }
 
   onLoadMoreStateChange() {
-    console.log(`loadMoreState 发生了变化 - ${this.loadMoreState}`)
+    Logger.info(`loadMoreState 发生了变化 - ${this.loadMoreState}`)
     switch (this.loadMoreState) {
       case LoadMoreState.Loading:
         this.loadingText = '正在加载。。。'
@@ -109,7 +112,7 @@ export struct  RefreshList  {
           // 有子组件划入或划出List显示区域时触发。从API version 10开始，List显示区域中间位置子组件变化时也会触发
           if (end >= this.data.length - 1) {
             // 显示加载
-            console.log(`end = ${end} length = ${this.data.length} this.loadMoreState=>${this.loadMoreState}`)
+            Logger.info(`end = ${end} length = ${this.data.length} this.loadMoreState=>${this.loadMoreState}`)
             // 如果是初始化状态，或者 加载更多的时候，进去刷新
             if (this.loadMoreState == LoadMoreState.LoadFinish || this.loadMoreState == LoadMoreState.None) {
               this.loadMoreState = LoadMoreState.Loading
