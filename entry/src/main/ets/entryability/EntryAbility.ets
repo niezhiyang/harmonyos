@@ -5,7 +5,7 @@ import { createNWeb } from '../component/common';
 
 export default class EntryAbility extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage): void {
-    Logger.info("EntryAbility", '我是一个info类型日志 我的----')
+    Logger.info("我是一个info类型日志 我的----", "EntryAbility")
     for (let index = 0; index++; index < 1000) {
       Logger.info(`----${index}-----`)
     }

@@ -5,8 +5,8 @@ import { PathConstant } from '../constant/PathConstant';
 @Component
 struct Index {
   @State message: string = 'Hello World';
-
   aboutToAppear(): void {
+
   }
   build() {
     Navigation() {
@@ -34,6 +34,12 @@ struct Index {
         })
         Button('photo').onClick(() => {
           router.pushUrl({ url: 'pages/photo/PhotoPage' })
+        })
+        Button('LazyList').onClick(() => {
+          router.pushUrl({ url: 'pages/list/LazyListPage' })
+        })
+        Button('water').onClick(() => {
+          router.pushUrl({ url: 'pages/list/WaterPage' })
         })
       }
       .justifyContent(FlexAlign.Center)

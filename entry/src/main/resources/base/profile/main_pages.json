@@ -9,6 +9,8 @@
     "pages/nav/NavigationDemoPage",
     "pages/net/NetPage",
     "pages/LogPage",
-    "pages/photo/PhotoPage"
+    "pages/photo/PhotoPage",
+    "pages/list/LazyListPage",
+    "pages/list/WaterPage"
   ]
 }
