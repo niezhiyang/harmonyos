@@ -1,6 +1,7 @@
 {
   "module": {
     "name": "entry",
+    "routerMap": "$profile:route_map",
     "type": "entry",
     "description": "$string:module_desc",
     "mainElement": "EntryAbility",

@@ -5,6 +5,8 @@
   "main": "",
   "author": "",
   "license": "",
-  "dependencies": {}
+  "dependencies": {
+    "@nzy/login": "file:../feature/feature_login"
+  }
 }
 

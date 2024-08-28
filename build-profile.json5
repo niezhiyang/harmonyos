@@ -44,6 +44,54 @@
           ]
         }
       ]
+    },
+    {
+      "name": "feature_login",
+      "srcPath": "./feature/feature_login",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "feature_pay",
+      "srcPath": "./feature/feature_pay",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "feature_share",
+      "srcPath": "./feature/feature_share",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "featrue_setting",
+      "srcPath": "./feature/featrue_setting",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     }
   ]
 }
