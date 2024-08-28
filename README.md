@@ -1,3 +1,1 @@
-- 下拉舒心，上拉加载更多的List 
-- web 基本处理
-- jsBridge搭建，对接 https://github.com/uknownothingsnow/JsBridge
+# 迁移到 [Gitee](https://gitee.com/zhiyangnie)
